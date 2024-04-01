@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+</head>
+<body>
+<form th:action="@{update}" method="post" th:object="${employeeDTO}" th:for="save" class="col card p-3 mb-5">
+    <div class="form-group">
+        <label for="employeeName">Employee Name:</label>
+        <input type="text" id="employeeName" name="employeeName" th:field="*{employeeName}" />
+    </div>
+    <div class="form-group">
+        <label for="employeeNumber">Employee Number:</label>
+        <input type="number" id="employeeNumber" name="employeeNumber" th:field="*{employeeNumber}" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" />
+    </div>
+    <div class="form-group">
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" th:field="*{position}" />
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="number" id="phone" name="phone" th:field="*{phone}" />
+    </div>
+    <button type="submit" class="btn btn-primary" value="update">Update</button>
+</form>
+</body>
+</html>

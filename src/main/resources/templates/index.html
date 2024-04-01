@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Page</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+</head>
+<body class="container">
+<h1 class="py-5">Welcome to our website!</h1>
+<form th:action="@{submit}" method="post" th:object="${request}" th:for="save" class="col card p-3 mb-5">
+    <div class="form-group">
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" name="employeeName" th:field="*{employeeName}" />
+    </div>
+    <div class="form-group">
+    <label for="employeeNumber">Employee Number:</label>
+    <input type="number" id="employeeNumber" name="employeeNumber" th:field="*{employeeNumber}" />
+    </div>
+    <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:field="*{email}" />
+    </div>
+    <div class="form-group">
+    <label for="position">Position:</label>
+    <input type="text" id="position" name="position" th:field="*{position}" />
+    </div>
+    <div class="form-group">
+    <label for="phone">Phone:</label>
+    <input type="number" id="phone" name="phone" th:field="*{phone}" />
+    </div>
+    <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+</form>
+
+<form th:action="@{search}" method="post" th:object="${search}" th:for="search">
+    <div class="form-group">
+    <label for="byName">Search By Name</label>
+    <input type="text" id="byName" name="query" th:field="*{employeeName}"/>
+    <label for="byNumber">Search By Employee Number</label>
+    <input type="number" id="byNumber" name="query" th:field="*{employeeNumber}"/>
+    <label for="byEmail">Search By Email</label>
+    <input type="text" id="byEmail" name="query" th:field="*{email}"/>
+    <label for="byPosition">Search By Position</label>
+    <input type="text" id="byPosition" name="query" th:field="*{position}"/>
+    <label for="byPhone">Search By Phone</label>
+    <input type="text" id="byPhone" name="query" th:field="*{phone}"/>
+    <button type="submit" value="search">Search</button>
+    </div>
+
+</form>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Employee Name</th>
+        <th>Employee Number</th>
+        <th>Position</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(employee)}">
+        <td colspan="5">No Records found. Add some...!</td>
+    </tr>
+    <tr th:each="em : ${employee}">
+        <td th:text="${em.getEmployeeId()}"></td>
+        <td th:text="${em.getEmployeeName()}"></td>
+        <td th:text="${em.getEmployeeNumber()}"></td>
+        <td th:text="${em.getPosition()}"></td>
+        <td th:text="${em.getPhone()}"></td>
+        <td th:text="${em.getEmail()}"></td>
+        <td>
+            <a th:href="@{'/employee/edit/' + ${em.getEmployeeId()}}" class="btn btn-info" role="button">Edit</a>
+            <a th:href="@{'/delete/' + ${em.getEmployeeId()}}" class="btn btn-info" role="button">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
